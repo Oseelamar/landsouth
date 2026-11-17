@@ -122,7 +122,6 @@ section{scroll-margin-top:100px}
 .panel__h{font-size:clamp(48px,calc(9.6vw - 58px),88px);line-height:1.13;color:var(--ink);max-width:460px}
 .panel__img{width:333px;height:333px;object-fit:contain}
 .panel__p{justify-self:end;width:100%;max-width:372px;font-size:18px;line-height:1.77;letter-spacing:-.01em;color:var(--muted)}
-.services__more{padding:clamp(48px,6vw,80px) 0 clamp(80px,9vw,128px);position:relative;z-index:1;background:var(--cream)}
 
 /* about: team portraits, then the copy with stamp badges */
 .about{background:var(--sand)}
@@ -391,13 +390,12 @@ section{scroll-margin-top:100px}
 /* ---------- the colour change, after AdLib: once the switching section settles in,
    the stuck service panel, the link strip and the section itself all fade to forest together ---------- */
 .services{background:var(--cream)}
-.services,.stack .panel:last-child,.services__more,.sw{transition:background-color 1s cubic-bezier(.4,0,.2,1),color .8s ease,border-color .8s ease}
-.panel__h,.panel__p,.services__more .link{transition:color .8s ease}
+.services,.stack .panel:last-child,.sw{transition:background-color 1s cubic-bezier(.4,0,.2,1),color .8s ease,border-color .8s ease}
+.panel__h,.panel__p{transition:color .8s ease}
 .dark .stack .panel:last-child{background:var(--forest);border-color:var(--forest)}
 .dark .stack .panel:last-child .panel__h{color:#fff}
 .dark .stack .panel:last-child .panel__p{color:rgba(255,255,255,.7)}
-.dark .services,.dark .services__more{background:var(--forest)}
-.dark .services__more .link{color:#fff}
+.dark .services{background:var(--forest)}
 .sw{background:var(--cream);color:#fff;position:relative}
 .dark .sw{background:var(--forest)}
 .sw__in{opacity:0;transform:translateY(24px);transition:opacity .9s ease .25s,transform 1.1s cubic-bezier(.2,.7,.2,1) .25s}

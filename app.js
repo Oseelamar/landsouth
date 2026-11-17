@@ -78,12 +78,12 @@
     groups.flat().forEach(pth => { const L = pth.getTotalLength() || 1; pth.style.strokeDasharray = L; pth.style.strokeDashoffset = L; pth.dataset.l = L; });
     const wins = [...sw.querySelectorAll('.win')], swSteps = [...sw.querySelectorAll('.d5__step')], swDots = [...sw.querySelectorAll('.d5__dots i')];
     const swFrame = () => {
-      root.classList.toggle('dark', sw.getBoundingClientRect().top < innerHeight * .4);
+      root.classList.toggle('dark', sw.getBoundingClientRect().top < innerHeight * .85);
       const r = sw.getBoundingClientRect();
       const p = flat ? 1 : cl(-r.top / (r.height - innerHeight));
       groups.forEach((g, i) => {
         const t = cl((p - i / 3) * 3 / .85);
-        g.forEach(pth => { pth.style.strokeDashoffset = (pth.dataset.l * (1 - t)).toFixed(1); });
+        g.forEach(pth => { pth.style.strokeDashoffset = (pth.dataset.l * (1 - t)).toFixed(1); pth.style.opacity = t > 0 ? 1 : 0; });
       });
       wins.forEach(w => w.classList.toggle('on', p > .9));
       const idx = Math.min(2, Math.floor(p * 3 * .999));
