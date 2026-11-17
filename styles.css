@@ -1,4 +1,4 @@
-@font-face{font-family:"Season Sans";src:url(fonts/SeasonSans-TRIAL-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Season Sans";src:url(fonts/SeasonSans-Bold.woff2) format("woff2"),url(fonts/SeasonSans-TRIAL-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
 :root{
   --forest:#233b26;
   --olive:#3d5a33;
@@ -267,20 +267,22 @@ section{scroll-margin-top:100px}
 .foot__badges img{height:30px;width:auto;filter:brightness(0) invert(1) opacity(.7)}
 
 /* motion */
-.mark__w{transform:translateY(40px);opacity:0;transition:transform 1.3s cubic-bezier(.2,.7,.2,1),opacity 1.1s ease}
-.mark__w:nth-child(2){transition-delay:.12s}
-.mark__w:nth-child(3){transition-delay:.24s}
-.loaded .mark__w{transform:none;opacity:1}
+/* hero lines rise in with pure CSS, so they never wait for the script to download */
+@keyframes rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.mark__w{animation:rise 1.2s cubic-bezier(.2,.7,.2,1) .1s both}
+.mark__w:nth-child(2){animation-delay:.22s}
+.mark__w:nth-child(3){animation-delay:.34s}
 [data-rise] .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 [data-rise] .ln__i{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 [data-rise].in .ln__i{transform:none}
 [data-in]{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1),background .3s,padding .4s cubic-bezier(.2,.7,.2,1)}
 [data-in].in{opacity:1;transform:none}
-.qcard{opacity:0;transform:translateY(16px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
-.loaded .qcard{opacity:1;transform:none}
+@keyframes riseSm{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.qcard{animation:riseSm 1s cubic-bezier(.2,.7,.2,1) both}
+.qcard:nth-of-type(1){animation-delay:.45s}.qcard:nth-of-type(2){animation-delay:.53s}.qcard:nth-of-type(3){animation-delay:.61s}.qcard:nth-of-type(4){animation-delay:.69s}
 .flat *{transition:none!important}
-.flat .mark__w,.flat .qcard,.flat [data-in],.flat [data-rise] .ln__i{opacity:1!important;transform:none!important}
-@media (prefers-reduced-motion:reduce){.mark__w,.qcard,[data-in],[data-rise] .ln__i{transition:none!important;opacity:1!important;transform:none!important}}
+.flat .mark__w,.flat .qcard,.flat [data-in],.flat [data-rise] .ln__i{opacity:1!important;transform:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){.mark__w,.qcard,[data-in],[data-rise] .ln__i{transition:none!important;animation:none!important;opacity:1!important;transform:none!important}}
 
 /* tablet */
 @media (max-width:1100px){
