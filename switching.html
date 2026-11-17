@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Switching options — Land South</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="options.css">
+<style>
+/* ---------- option picker ---------- */
+.pick{position:fixed;z-index:90;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;background:#fff;border-radius:999px;box-shadow:0 14px 40px rgba(20,40,30,.22)}
+.pick span{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase;color:var(--muted);margin-right:6px}
+.pick a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:var(--ui);color:var(--ink);transition:background .25s}
+.pick a:hover{background:var(--sand)}
+.pick a.on{background:var(--forest);color:var(--lime)}
+.pick__name{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase;padding:0 14px 0 8px;color:var(--ink)}
+@media (max-width:720px){.pick{bottom:12px;padding-left:12px}.pick span,.pick__name{display:none}.pick a{width:38px;height:38px}}
+
+/* ---------- the colour change, after AdLib: once the switching section settles in,
+   the stuck service panel, the link strip and the section itself all fade to forest together ---------- */
+.services{background:var(--cream)}
+.services,.stack .panel:last-child,.services__more,.sw{transition:background-color 1s cubic-bezier(.4,0,.2,1),color .8s ease,border-color .8s ease}
+.panel__h,.panel__p,.services__more .link{transition:color .8s ease}
+.dark .stack .panel:last-child{background:var(--forest);border-color:var(--forest)}
+.dark .stack .panel:last-child .panel__h{color:#fff}
+.dark .stack .panel:last-child .panel__p{color:rgba(255,255,255,.7)}
+.dark .services,.dark .services__more{background:var(--forest)}
+.dark .services__more .link{color:#fff}
+.sw{background:var(--cream);color:#fff;position:relative}
+.dark .sw{background:var(--forest)}
+.sw__in{opacity:0;transform:translateY(24px);transition:opacity .9s ease .25s,transform 1.1s cubic-bezier(.2,.7,.2,1) .25s}
+.dark .sw__in{opacity:1;transform:none}
+.sw[hidden]{display:none}
+.sw .tag{color:var(--sage-2)}
+.sw .tag::before{background:var(--lime)}
+.sw-h{font-size:clamp(40px,5vw,76px);line-height:1.13;color:#fff}
+.after{background:var(--forest);height:40vh}
+
+/* shared pinned-stage helpers */
+.pinwrap{position:relative}
+.pinstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center}
+
+/* ========== 1. Picker counter: the step number rolls through solid detents like an iOS picker ========== */
+.d1{height:340vh}
+.d1 .pinstage .wrap{width:100%;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(32px,5vw,90px);align-items:center}
+.d1__win{height:1em;overflow:hidden;font:400 clamp(160px,24vw,380px)/1 var(--serif);letter-spacing:-.06em;color:var(--lime);margin-top:20px}
+.d1__reel{display:flex;flex-direction:column;transition:transform .8s cubic-bezier(.65,0,.15,1)}
+.d1__reel span{height:1em;display:block}
+.d1__twin{height:calc(1.13em * 2);overflow:hidden;font-size:clamp(36px,4vw,60px)}
+.d1__treel{transition:transform .8s cubic-bezier(.65,0,.15,1)}
+.d1__treel h3{height:calc(1.13em * 2);font-size:1em;line-height:1.13;display:flex;align-items:flex-end;color:#fff}
+.d1__pwin{position:relative;margin-top:22px;min-height:7.2em}
+.d1__pwin p{position:absolute;inset:0 0 auto;color:rgba(255,255,255,.72);font-size:18px;max-width:34ch;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.d1__pwin p.on{opacity:1;transform:none;transition-delay:.25s}
+.d1__bar{display:flex;gap:8px;margin-top:28px}
+.d1__bar i{flex:1;height:3px;background:rgba(255,255,255,.16);position:relative;overflow:hidden}
+.d1__bar i::after{content:"";position:absolute;inset:0;background:var(--lime);transform-origin:0 50%;transform:scaleX(var(--f,0))}
+.d1 .btn{margin-top:36px}
+
+/* ========== 2. Winding path: a line draws down the page and a house marker rides it to each step ========== */
+.d2{padding:clamp(100px,12vw,170px) 0 clamp(120px,14vw,200px)}
+.d2__head{text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:clamp(40px,6vw,90px)}
+.d2__track{position:relative}
+.d2__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.d2__svg .base{fill:none;stroke:rgba(255,255,255,.14);stroke-width:2;stroke-dasharray:2 10;stroke-linecap:round}
+.d2__svg .live{fill:none;stroke:var(--lime);stroke-width:2.5;stroke-linecap:round}
+.d2__marker{position:absolute;left:0;top:0;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:var(--lime);color:var(--forest);display:grid;place-items:center;box-shadow:0 0 0 8px rgba(220,234,156,.16);z-index:2}
+.d2__marker svg{width:26px;height:26px}
+.d2__step{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:clamp(340px,38vw,500px);align-items:center}
+.d2__card{max-width:420px;opacity:.25;transform:translateY(16px);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.d2__step.on .d2__card{opacity:1;transform:none}
+.d2__step:nth-child(odd) .d2__card{grid-column:2;padding-left:clamp(90px,10vw,160px)}
+.d2__step:nth-child(even) .d2__card{grid-column:1;justify-self:end;padding-right:clamp(90px,10vw,160px);text-align:right}
+.d2__card small{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase;color:var(--lime)}
+.d2__card h3{font-size:clamp(32px,3.4vw,52px);line-height:1.13;margin:12px 0}
+.d2__card p{color:rgba(255,255,255,.72)}
+.d2__end{text-align:center;margin-top:clamp(30px,4vw,60px)}
+
+/* ========== 3. Deal the deck: three paper cards start stacked and are dealt out into a row ========== */
+.d3{height:300vh}
+.d3 .pinstage{flex-direction:column;justify-content:center}
+.d3__head{width:100%;text-align:center;margin-bottom:clamp(28px,4vw,56px)}
+.d3__table{position:relative;width:100%;height:clamp(360px,34vw,460px)}
+.d3__card{position:absolute;left:50%;top:0;width:clamp(260px,26vw,360px);height:100%;margin-left:calc(clamp(260px,26vw,360px) / -2);padding:clamp(24px,2.4vw,36px);color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;will-change:transform;
+  clip-path:polygon(0 1.4%,8% 0,22% 1.2%,38% 0,55% 1.3%,72% 0,88% 1.1%,100% 0,99.2% 30%,100% 62%,99% 100%,80% 98.8%,61% 100%,42% 98.7%,22% 100%,6% 98.8%,0 100%,.8% 66%,0 34%)}
+.d3__card:nth-child(1){background:var(--cream)}
+.d3__card:nth-child(2){background:var(--lime)}
+.d3__card:nth-child(3){background:var(--sage-2)}
+.d3__type{font:600 12px/1.6 ui-monospace,"Courier New",monospace;letter-spacing:.06em;color:var(--olive);display:flex;justify-content:space-between;border-bottom:1px dashed rgba(61,90,51,.45);padding-bottom:12px}
+.d3__n{font:400 clamp(72px,7vw,110px)/1 var(--serif);letter-spacing:-.05em;color:var(--forest)}
+.d3__card h3{font-size:clamp(26px,2.3vw,34px);line-height:1.13;margin-bottom:10px}
+.d3__card p{font-size:15px;color:#4c584d}
+.d3__cta{margin-top:clamp(24px,3vw,44px);opacity:0;transition:opacity .6s ease}
+.d3__cta.on{opacity:1}
+
+/* ========== 4. Filling type: each step is a huge outlined line that fills lime as you scroll past ========== */
+.d4{padding:clamp(100px,12vw,170px) 0 clamp(110px,13vw,190px)}
+.d4__rows{list-style:none;margin-top:clamp(40px,6vw,90px);border-top:1px solid var(--line-l)}
+.d4__row{padding:clamp(28px,3.4vw,48px) 0;border-bottom:1px solid var(--line-l);display:grid;grid-template-columns:clamp(54px,7vw,100px) minmax(0,1fr);gap:clamp(12px,2vw,28px);align-items:start}
+.d4__n{font:var(--ui);letter-spacing:var(--ui-track);color:var(--lime);padding-top:.9em}
+.d4__big{font:400 clamp(48px,8.4vw,136px)/1.02 var(--serif);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.45);
+  background:linear-gradient(90deg,var(--lime) 0 var(--f,0%),transparent var(--f,0%));-webkit-background-clip:text;background-clip:text}
+.d4__p{grid-column:2;color:rgba(255,255,255,.72);font-size:18px;max-width:46ch;margin-top:18px;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.d4__row.on .d4__p{opacity:1;transform:none}
+.d4__end{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:clamp(36px,4vw,60px)}
+.d4__end p{color:var(--sage-2)}
+
+/* ========== 5. The house builds itself: a line drawing completes in three stages, one per step ========== */
+.d5{height:340vh}
+.d5 .pinstage .wrap{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,90px);align-items:center}
+.d5__art{width:100%;max-width:560px;justify-self:center}
+.d5__art svg{width:100%;height:auto;overflow:visible}
+.d5__art .ln{fill:none;stroke:#f7f4ec;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.d5__art .win{fill:var(--lime);opacity:0;transition:opacity .6s ease}
+.d5__art .win.on{opacity:1}
+.d5__art .gnd{stroke:rgba(255,255,255,.3)}
+.d5__art .tag-c{fill:var(--lime)}
+.d5__steps{position:relative;min-height:330px}
+.d5__step{position:absolute;inset:0 0 auto;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .8s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.d5__step.on{opacity:1;transform:none;transition-delay:.15s;pointer-events:auto}
+.d5__step small{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase;color:var(--lime)}
+.d5__step h3{font-size:clamp(36px,4vw,60px);line-height:1.13;margin:14px 0}
+.d5__step p{color:rgba(255,255,255,.72);font-size:18px;max-width:36ch}
+.d5__dots{display:flex;gap:8px;margin-top:8px}
+.d5__dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:width .4s,background .4s}
+.d5__dots i.on{width:26px;border-radius:4px;background:var(--lime)}
+
+@media (max-width:900px){
+  .d1 .pinstage .wrap,.d5 .pinstage .wrap{grid-template-columns:1fr;gap:18px}
+  .d1__win{font-size:clamp(120px,34vw,200px);margin-top:4px}
+  .d1__pwin{min-height:8em}
+  .d1__pwin p{font-size:16px}
+  .d2__step{grid-template-columns:1fr;min-height:0;padding:0 0 64px 76px}
+  .d2__step:nth-child(n) .d2__card{grid-column:1;justify-self:start;padding:0;text-align:left}
+  .d2__step:last-child{padding-bottom:12px}
+  .d2__end{text-align:left;padding-left:0;margin-top:48px}
+  .d2__end .btn{width:100%}
+  .d4__p{font-size:16px}
+  .d5__art{max-width:300px}
+  .d5__steps{min-height:250px}
+  .d5__step p{font-size:16px}
+  .sw-h{font-size:clamp(36px,10vw,52px)}
+}
+@media (max-width:720px){
+  .d3{height:auto}
+  .d3 .pinstage{position:static;height:auto;overflow:visible;padding:96px 0 110px}
+  .d3__table{height:auto;display:flex;flex-direction:column;gap:16px}
+  .d3__card{position:relative;left:auto;margin:0;width:100%;height:auto;min-height:280px;transform:none!important}
+  .d3__card:nth-child(1){transform:rotate(-1.5deg)!important}
+  .d3__card:nth-child(3){transform:rotate(1.2deg)!important}
+  .d3__cta{opacity:1}
+}
+@media (prefers-reduced-motion:reduce){.d1__reel,.d1__treel{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="opt-head">
+  <div class="wrap">
+    <p>Land South · switching section options</p>
+    <a class="link link--light" href="index.html">Back to homepage <i class="arr"></i></a>
+  </div>
+</header>
+
+<nav class="pick" aria-label="Choose an option">
+  <span>Option</span>
+  <a href="?v=1">1</a><a href="?v=2">2</a><a href="?v=3">3</a><a href="?v=4">4</a><a href="?v=5">5</a>
+  <b class="pick__name"></b>
+</nav>
+
+<main>
+<!-- OUR SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="intro">
+      <p class="tag">Our services</p>
+      <h2 class="caps">Serving Lakeland property owners since 1978</h2>
+      <p class="intro__p">Land South Properties and Management is one of Lakeland's largest and most diverse property management companies, serving investment property owners in the region since 1978.</p>
+    </div>
+  </div>
+  <ol class="stack">
+    <li class="panel">
+      <h3 class="panel__h">Marketing</h3>
+      <img class="panel__img" src="img/svc-marketing.png" alt="A vintage megaphone collage" width="760" height="760" loading="eager">
+      <p class="panel__p">We'll prepare your property for rent and evaluate the current rental market to get you the best return on your investment, then market it on a host of platforms.</p>
+    </li>
+    <li class="panel">
+      <h3 class="panel__h">Screening &amp; selection</h3>
+      <img class="panel__img" src="img/svc-screening.png" alt="A magnifying glass over a rental application" width="760" height="760" loading="lazy">
+      <p class="panel__p">A stringent screening process ensures your property is filled with reliable, responsible tenants.</p>
+    </li>
+    <li class="panel">
+      <h3 class="panel__h">Maintenance &amp; inspections</h3>
+      <img class="panel__img" src="img/svc-maintenance.png" alt="A wrench wrapped in an inspection report" width="760" height="760" loading="lazy">
+      <p class="panel__p">Your property is a significant investment. We see to maintenance requests immediately and carry out regular inspections.</p>
+    </li>
+    <li class="panel">
+      <h3 class="panel__h">Tenant move-out</h3>
+      <img class="panel__img" src="img/svc-moveout.png" alt="A house key with a move-out checklist tag" width="760" height="760" loading="lazy">
+      <p class="panel__p">We take care of every move-out step, including final inspections, security deposit returns and turnover maintenance.</p>
+    </li>
+  </ol>
+  <div class="wrap services__more">
+    <a class="link" href="https://landsouthmanagement.com/services/">View all services <i class="arr"></i></a>
+  </div>
+</section>
+
+<!-- ================= OPTION 1 ================= -->
+<section class="sw d1 pinwrap" data-v="1" data-name="Picker counter" hidden>
+  <div class="pinstage"><div class="wrap sw__in">
+    <div>
+      <p class="tag">Switching to Land South</p>
+      <h2 class="sw-h">How switching works</h2>
+      <div class="d1__win" aria-hidden="true"><div class="d1__reel"><span>01</span><span>02</span><span>03</span></div></div>
+    </div>
+    <div>
+      <div class="d1__twin"><div class="d1__treel"><h3>Free rental analysis</h3><h3>Easy onboarding</h3><h3>Your first rent paid</h3></div></div>
+      <div class="d1__pwin">
+        <p class="on">Send us your property address. We'll study the Lakeland rental market and tell you what your home should rent for.</p>
+        <p>We take over the paperwork: leases, deposits, keys and introductions to any current residents. You don't have to chase your old manager.</p>
+        <p>Rent is collected online and paid out to you, with every statement waiting in your owner portal.</p>
+      </div>
+      <div class="d1__bar"><i></i><i></i><i></i></div>
+      <a class="btn btn--lime" href="index.html#analysis">Start with a free rental analysis <i class="arr"></i></a>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= OPTION 2 ================= -->
+<section class="sw d2" data-v="2" data-name="Winding path" hidden>
+  <div class="wrap sw__in">
+    <div class="d2__head"><p class="tag">Switching to Land South</p><h2 class="sw-h">How switching works</h2></div>
+    <div class="d2__track">
+      <svg class="d2__svg" aria-hidden="true"><path class="base"/><path class="live"/></svg>
+      <span class="d2__marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M4 11.2 12 4.5l8 6.7M6.5 9.4V19.5h4v-5h3v5h4V9.4"/></svg></span>
+      <div class="d2__step"><div class="d2__card"><small>Step 01</small><h3>Free rental analysis</h3><p>Send us your property address. We'll study the Lakeland rental market and tell you what your home should rent for.</p></div></div>
+      <div class="d2__step"><div class="d2__card"><small>Step 02</small><h3>Easy onboarding</h3><p>We take over the paperwork: leases, deposits, keys and introductions to any current residents. You don't have to chase your old manager.</p></div></div>
+      <div class="d2__step"><div class="d2__card"><small>Step 03</small><h3>Your first rent paid</h3><p>Rent is collected online and paid out to you, with every statement waiting in your owner portal.</p></div></div>
+    </div>
+    <div class="d2__end"><a class="btn btn--lime" href="index.html#analysis">Start with a free rental analysis <i class="arr"></i></a></div>
+  </div>
+</section>
+
+<!-- ================= OPTION 3 ================= -->
+<section class="sw d3 pinwrap" data-v="3" data-name="Deal the deck" hidden>
+  <div class="pinstage"><div class="wrap sw__in" style="width:100%">
+    <div class="d3__head"><p class="tag">Switching to Land South</p><h2 class="sw-h">How switching works</h2></div>
+    <div class="d3__table">
+      <article class="d3__card"><div class="d3__type"><span>STEP 01</span><span>ANALYSIS</span></div><span class="d3__n">01</span><div><h3>Free rental analysis</h3><p>Send us your property address. We'll study the Lakeland rental market and tell you what your home should rent for.</p></div></article>
+      <article class="d3__card"><div class="d3__type"><span>STEP 02</span><span>ONBOARDING</span></div><span class="d3__n">02</span><div><h3>Easy onboarding</h3><p>We take over the paperwork: leases, deposits, keys and introductions to any current residents. You don't have to chase your old manager.</p></div></article>
+      <article class="d3__card"><div class="d3__type"><span>STEP 03</span><span>FIRST RENT</span></div><span class="d3__n">03</span><div><h3>Your first rent paid</h3><p>Rent is collected online and paid out to you, with every statement waiting in your owner portal.</p></div></article>
+    </div>
+    <div class="center d3__cta"><a class="btn btn--lime" href="index.html#analysis">Start with a free rental analysis <i class="arr"></i></a></div>
+  </div></div>
+</section>
+
+<!-- ================= OPTION 4 ================= -->
+<section class="sw d4" data-v="4" data-name="Filling type" hidden>
+  <div class="wrap sw__in">
+    <p class="tag">Switching to Land South</p>
+    <h2 class="sw-h">How switching works</h2>
+    <ol class="d4__rows">
+      <li class="d4__row"><span class="d4__n">01</span><h3 class="d4__big">Free rental analysis</h3><p class="d4__p">Send us your property address. We'll study the Lakeland rental market and tell you what your home should rent for.</p></li>
+      <li class="d4__row"><span class="d4__n">02</span><h3 class="d4__big">Easy onboarding</h3><p class="d4__p">We take over the paperwork: leases, deposits, keys and introductions to any current residents. You don't have to chase your old manager.</p></li>
+      <li class="d4__row"><span class="d4__n">03</span><h3 class="d4__big">Your first rent paid</h3><p class="d4__p">Rent is collected online and paid out to you, with every statement waiting in your owner portal.</p></li>
+    </ol>
+    <div class="d4__end"><p>Three steps, and we handle the paperwork.</p><a class="btn btn--lime" href="index.html#analysis">Start with a free rental analysis <i class="arr"></i></a></div>
+  </div>
+</section>
+
+<!-- ================= OPTION 5 ================= -->
+<section class="sw d5 pinwrap" data-v="5" data-name="House builds" hidden>
+  <div class="pinstage"><div class="wrap sw__in">
+    <div class="d5__art" aria-hidden="true">
+      <svg viewBox="0 0 400 340">
+        <!-- stage 1: ground and walls -->
+        <path class="ln gnd s1" d="M20 300H380"/>
+        <path class="ln s1" d="M80 300V170M320 300V170M80 170H320"/>
+        <!-- stage 2: roof, chimney, door and a key tag -->
+        <path class="ln s2" d="M60 182L200 70L340 182"/>
+        <path class="ln s2" d="M262 120V82h28v60"/>
+        <path class="ln s2" d="M176 300V226a24 24 0 0 1 48 0V300"/>
+        <path class="ln s2" d="M212 262h0.1"/>
+        <!-- stage 3: windows light up and smoke rises -->
+        <path class="ln s3" d="M104 196h48v44h-48zM248 196h48v44h-48zM128 196v44M272 196v44M104 218h48M248 218h48"/>
+        <path class="ln s3" d="M276 70c-8-10 8-16 0-28M284 64c-6-8 6-12 0-20"/>
+        <rect class="win" x="105" y="197" width="46" height="42"/>
+        <rect class="win" x="249" y="197" width="46" height="42"/>
+      </svg>
+    </div>
+    <div>
+      <p class="tag">Switching to Land South</p>
+      <h2 class="sw-h" style="margin-bottom:28px">How switching works</h2>
+      <div class="d5__steps">
+        <div class="d5__step on"><small>Step 01</small><h3>Free rental analysis</h3><p>Send us your property address. We'll study the Lakeland rental market and tell you what your home should rent for.</p></div>
+        <div class="d5__step"><small>Step 02</small><h3>Easy onboarding</h3><p>We take over the paperwork: leases, deposits, keys and introductions to any current residents. You don't have to chase your old manager.</p></div>
+        <div class="d5__step"><small>Step 03</small><h3>Your first rent paid</h3><p>Rent is collected online and paid out to you, with every statement waiting in your owner portal.</p><a class="btn btn--lime" href="index.html#analysis" style="margin-top:28px">Start with a free rental analysis <i class="arr"></i></a></div>
+      </div>
+      <div class="d5__dots"><i class="on"></i><i></i><i></i></div>
+    </div>
+  </div></div>
+</section>
+
+<div class="after" aria-hidden="true"></div>
+</main>
+
+<script>
+(() => {
+  const q = new URLSearchParams(location.search);
+  const v = Math.min(5, Math.max(1, parseInt(q.get('v'), 10) || 1));
+  const flat = q.has('flat');
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const root = document.documentElement;
+  const sec = document.querySelector(`.sw[data-v="${v}"]`);
+  sec.hidden = false;
+  document.querySelectorAll('.pick a').forEach((a, i) => a.classList.toggle('on', i + 1 === v));
+  document.querySelector('.pick__name').textContent = sec.dataset.name;
+
+  // progress through a pinned section: 0 when it locks, 1 when it lets go
+  const pinP = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); };
+  // progress of an element moving up through the screen
+  const viewP = (el, start = .85, end = .35) => { const r = el.getBoundingClientRect(); return clamp((innerHeight * start - r.top) / (innerHeight * (start - end))); };
+
+  /* ---------- option 1 ---------- */
+  const o1 = () => {
+    const reel = sec.querySelector('.d1__reel'), treel = sec.querySelector('.d1__treel');
+    const ps = [...sec.querySelectorAll('.d1__pwin p')], bars = [...sec.querySelectorAll('.d1__bar i')];
+    let cur = -1;
+    return () => {
+      const p = flat ? 0 : pinP(sec);
+      bars.forEach((b, i) => b.style.setProperty('--f', clamp(p * 3 - i).toFixed(3)));
+      const idx = Math.min(2, Math.floor(p * 3 * .999));
+      if (idx === cur) return;
+      cur = idx;
+      reel.style.transform = `translateY(${-idx}em)`;
+      treel.style.transform = `translateY(${-idx * 100 / 3}%)`;
+      ps.forEach((x, i) => x.classList.toggle('on', i === idx));
+    };
+  };
+
+  /* ---------- option 2 ---------- */
+  const o2 = () => {
+    const track = sec.querySelector('.d2__track'), svg = sec.querySelector('.d2__svg');
+    const base = svg.querySelector('.base'), live = svg.querySelector('.live'), marker = sec.querySelector('.d2__marker');
+    const steps = [...sec.querySelectorAll('.d2__step')];
+    let len = 0, nodes = [];
+    const build = () => {
+      const W = track.clientWidth, phone = matchMedia('(max-width:900px)').matches;
+      // nodes sit on the centre line (or the left rail on phones); between them the line bows gently to alternate sides
+      const cx = phone ? 29 : W / 2;
+      nodes = steps.map(s => ({ x: cx, y: s.offsetTop + s.offsetHeight / 2 }));
+      const pts = [{ x: cx, y: 0 }, ...nodes, { x: cx, y: track.clientHeight }];
+      let d = `M${cx} 0`;
+      for (let i = 1; i < pts.length; i++) {
+        const a = pts[i - 1], b = pts[i], dy = b.y - a.y, swing = phone ? 0 : (i % 2 ? -1 : 1) * Math.min(W * .07, 100);
+        d += ` C${a.x + swing} ${a.y + dy * .45}, ${b.x + swing} ${b.y - dy * .45}, ${b.x} ${b.y}`;
+      }
+      base.setAttribute('d', d); live.setAttribute('d', d);
+      len = live.getTotalLength();
+      live.style.strokeDasharray = len;
+    };
+    build(); addEventListener('resize', build);
+    return () => {
+      const r = track.getBoundingClientRect();
+      const p = flat ? 1 : clamp((innerHeight * .55 - r.top) / r.height);
+      live.style.strokeDashoffset = (len * (1 - p)).toFixed(1);
+      const pt = live.getPointAtLength(len * p);
+      marker.style.transform = `translate(${pt.x}px, ${pt.y}px)`;
+      steps.forEach((s, i) => s.classList.toggle('on', flat || pt.y >= nodes[i].y - 40));
+    };
+  };
+
+  /* ---------- option 3 ---------- */
+  const o3 = () => {
+    const cards = [...sec.querySelectorAll('.d3__card')], cta = sec.querySelector('.d3__cta');
+    const rest = [{ x: -10, y: 14, r: -7 }, { x: 8, y: 6, r: 4 }, { x: 0, y: 0, r: -1.5 }];
+    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    return () => {
+      if (matchMedia('(max-width:720px)').matches) return;
+      const p = flat ? 1 : pinP(sec);
+      const gap = Math.min(innerWidth * .02, 24), w = cards[0].offsetWidth;
+      cards.forEach((c, i) => {
+        // the top card (last in the stack) is dealt first, to the right
+        const order = 2 - i, t = ease(clamp((p - order * .2) / .4));
+        const tx = (i - 1) * (w + gap);
+        const x = rest[i].x + (tx - rest[i].x) * t, y = rest[i].y * (1 - t), r = rest[i].r * (1 - t);
+        c.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+        c.style.zIndex = 10 + i;
+      });
+      cta.classList.toggle('on', p > .82);
+    };
+  };
+
+  /* ---------- option 4 ---------- */
+  const o4 = () => {
+    const rows = [...sec.querySelectorAll('.d4__row')];
+    return () => rows.forEach(row => {
+      const f = flat ? 1 : viewP(row, .82, .38);
+      row.querySelector('.d4__big').style.setProperty('--f', (f * 100).toFixed(1) + '%');
+      row.classList.toggle('on', f > .55);
+    });
+  };
+
+  /* ---------- option 5 ---------- */
+  const o5 = () => {
+    const groups = [1, 2, 3].map(n => [...sec.querySelectorAll('.s' + n)]);
+    groups.flat().forEach(pth => { const L = pth.getTotalLength() || 1; pth.style.strokeDasharray = L; pth.style.strokeDashoffset = L; pth.dataset.l = L; });
+    const wins = [...sec.querySelectorAll('.win')], steps = [...sec.querySelectorAll('.d5__step')], dots = [...sec.querySelectorAll('.d5__dots i')];
+    return () => {
+      const p = flat ? 1 : pinP(sec);
+      groups.forEach((g, i) => {
+        const t = clamp((p - i / 3) * 3 / .85);
+        g.forEach(pth => { pth.style.strokeDashoffset = (pth.dataset.l * (1 - t)).toFixed(1); });
+      });
+      wins.forEach(w => w.classList.toggle('on', p > .9));
+      const idx = Math.min(2, Math.floor(p * 3 * .999));
+      steps.forEach((s, i) => s.classList.toggle('on', i === idx));
+      dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    };
+  };
+
+  const run = [o1, o2, o3, o4, o5][v - 1]();
+
+  /* the AdLib-style colour change: dark once the section has settled into view, light again on the way back up */
+  const tone = () => root.classList.toggle('dark', flat || sec.getBoundingClientRect().top < innerHeight * .4);
+
+  let ticking = false;
+  const frame = () => { ticking = false; tone(); run(); };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+  addEventListener('resize', frame);
+  document.fonts.ready.then(frame);
+  frame();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* shared chrome for the option comparison pages */
+.opt-head{background:var(--forest);color:#fff;padding:22px 0}
+.opt-head .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.opt-head p{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase}
+.opt-intro{padding:clamp(64px,8vw,110px) 0 clamp(40px,5vw,64px)}
+.opt-intro h1{font-size:clamp(44px,6vw,88px);line-height:1.13;max-width:14ch}
+.opt-intro p{margin-top:20px;color:var(--muted);max-width:56ch}
+.opt-label{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;padding:18px 0;border-top:2px solid var(--ink)}
+.opt-label b{font:var(--ui);letter-spacing:var(--ui-track);text-transform:uppercase}
+.opt-label span{color:var(--muted);font-size:14px}
+.opt{padding:clamp(80px,10vw,150px) 0}
