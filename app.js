@@ -21,23 +21,23 @@
   }));
 
   // headings rise line by line from behind a mask
-  const split = el => {
-    const words = el.textContent.trim().split(/\s+/);
-    el.innerHTML = words.map(w => `<span class="w">${w}</span>`).join(' ');
-    const lines = []; let top = null;
-    el.querySelectorAll('.w').forEach(w => {
-      if (w.offsetTop !== top) { lines.push([]); top = w.offsetTop; }
-      lines[lines.length - 1].push(w.textContent);
+  // split all headings in three passes (write, read, write) so layout is computed once, not once per word
+  const splitAll = list => {
+    list.forEach(el => { el.innerHTML = el.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' '); });
+    const tops = list.map(el => [...el.querySelectorAll('.w')].map(w => [w.offsetTop, w.textContent]));
+    list.forEach((el, k) => {
+      const lines = []; let top = null;
+      tops[k].forEach(([t, txt]) => { if (t !== top) { lines.push([]); top = t; } lines[lines.length - 1].push(txt); });
+      el.innerHTML = lines.map((l, i) =>
+        `<span class="ln"><span class="ln__i" style="transition-delay:${i * 90}ms">${l.join(' ')}</span></span>`).join('');
     });
-    el.innerHTML = lines.map((l, i) =>
-      `<span class="ln"><span class="ln__i" style="transition-delay:${i * 90}ms">${l.join(' ')}</span></span>`).join('');
   };
 
   const els = [...document.querySelectorAll('[data-rise],[data-in]')];
   if (flat) { els.forEach(e => e.classList.add('in')); }
   else {
     document.fonts.ready.then(() => {
-      document.querySelectorAll('[data-rise]').forEach(split);
+      splitAll([...document.querySelectorAll('[data-rise]')]);
       const io = new IntersectionObserver(es => es.forEach(e => {
         if (!e.isIntersecting) return;
         if (e.target.hasAttribute('data-in')) {
