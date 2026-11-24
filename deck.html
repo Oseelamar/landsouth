@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Land South | Owner presentation</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Season Sans";src:url(fonts/SeasonSans-Bold.woff2) format("woff2"),url(fonts/SeasonSans-TRIAL-Bold.ttf) format("truetype");font-weight:700;font-display:block}
+:root{--forest:#233b26;--olive:#3d5a33;--sage:#7f9585;--sage-2:#b9c8b6;--lime:#dcea9c;--lime-2:#cfe082;--cream:#f7f4ec;--sand:#ebe5d7;--ink:#1b2a1d;--muted:#5f6b5f;--bg:#121c13;
+  --serif:"Nanum Myeongjo",Georgia,serif;--sans:"Manrope",system-ui,sans-serif;--ui:"Season Sans","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block}
+
+/* page around the slides */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:20px;max-width:1500px;margin:0 auto;padding:56px 40px 28px;
+  font:700 12px/1 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.top b{color:#fff;font-weight:700}
+.deck{display:grid;gap:44px;max-width:1500px;margin:0 auto;padding:0 40px 96px}
+/* ?s=N renders one slide at full window size */
+.solo .top{display:none}.solo .deck{max-width:none;padding:0;gap:0}.solo .s{box-shadow:none}
+
+/* ---------- slide system: sized in cqw so a slide scales as one piece (100cqw = width, 56.25cqw = height) ---------- */
+.s{position:relative;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:var(--cream);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.s>*{position:absolute}
+.s--forest{background:var(--forest);color:var(--cream)}
+.s--olive{background:var(--olive);color:var(--cream)}
+.s--sand{background:var(--sand)}
+.s::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:20;opacity:.06;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.s--forest::after,.s--olive::after{mix-blend-mode:overlay;opacity:.09}
+
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.05em;line-height:1.08}
+.ui{font:700 .66cqw/1 var(--ui);letter-spacing:.07em;text-transform:uppercase}
+.body{font-size:1.02cqw;line-height:1.6;color:var(--muted)}
+.s--forest .body,.s--olive .body{color:rgba(247,244,236,.72)}
+
+/* chrome: dot tags (the site's .tag), logo, folio */
+.lbl{top:3.3cqw;display:flex;align-items:center;gap:.6cqw;color:var(--olive)}
+.lbl::before{content:"";width:.42cqw;height:.42cqw;border-radius:50%;background:var(--sage)}
+.s--forest .lbl,.s--olive .lbl{color:var(--sage-2)}
+.s--forest .lbl::before,.s--olive .lbl::before{background:var(--lime)}
+.logo{width:8.9cqw;aspect-ratio:1760/595;background:var(--forest);-webkit-mask:url(img/Land-South-Property-Management-White.png) center/contain no-repeat;mask:url(img/Land-South-Property-Management-White.png) center/contain no-repeat}
+.logo--l{background:var(--cream)}
+.corner{top:2.6cqw;right:4.2cqw;width:6.6cqw}
+.folio{bottom:2.8cqw;right:4.2cqw;opacity:.55}
+.src{bottom:2.8cqw;left:4.2cqw;opacity:.55}
+
+/* ---------- 01 cover ---------- */
+.c-house{left:52cqw;width:42cqw;top:8.6cqw;bottom:0;
+  clip-path:polygon(0 34%,50% 0,68% 12.24%,68% 4%,76% 4%,76% 17.68%,100% 34%,100% 100%,0 100%)}
+.c-house img{width:100%;height:100%;object-fit:cover;object-position:34% 60%}
+.c-line{left:52cqw;width:42cqw;top:8.6cqw;bottom:0;overflow:visible;pointer-events:none}
+.c-line path{fill:none;stroke:var(--lime);stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.c-h{left:4.2cqw;top:13.4cqw;width:44cqw;font-size:5.15cqw;line-height:1.06}
+.c-h span{color:var(--lime)}
+.c-sub{left:4.2cqw;top:27.4cqw;width:30cqw}
+.meta{left:4.2cqw;bottom:4.2cqw;width:36cqw;display:grid}
+.meta div{display:grid;grid-template-columns:8.6cqw 1fr;gap:1cqw;align-items:baseline;padding:.85cqw 0;border-top:1px solid rgba(247,244,236,.18);font-size:.8cqw;line-height:1.35}
+.meta div:last-child{border-bottom:1px solid rgba(247,244,236,.18)}
+.meta span{color:var(--sage-2)}
+.seal{left:calc(52cqw - 6cqw);top:36cqw;width:12cqw;height:12cqw;z-index:3}
+.seal svg{width:100%;height:100%;overflow:visible}
+
+/* ---------- 02 700 homes ---------- */
+.n-h{left:4.2cqw;top:10.6cqw;font-size:5.4cqw;line-height:1.02}
+.n-b{left:4.2cqw;top:24.4cqw;width:30cqw}
+.stats{left:4.2cqw;top:37.4cqw;width:34cqw;display:grid;grid-template-columns:repeat(3,1fr)}
+.stats div{padding:1.1cqw 1.2cqw 0 0;border-top:1px solid rgba(27,42,29,.16);position:relative}
+.stats div::before{content:"";position:absolute;left:0;top:-.15cqw;width:2.2cqw;height:.3cqw;background:var(--c)}
+.stats b{display:block;font-family:var(--serif);font-weight:400;letter-spacing:-.05em;font-size:3.6cqw;line-height:1;color:var(--forest)}
+.stats span{display:block;margin-top:.7cqw;font-size:.8cqw;line-height:1.4;color:var(--muted)}
+.field{left:44cqw;width:51.8cqw;top:10.6cqw;display:grid;grid-template-columns:repeat(35,1fr);gap:.56cqw .3cqw}
+.field i{aspect-ratio:1;background:var(--sage-2);clip-path:polygon(50% 4%,100% 46%,100% 100%,0 100%,0 46%)}
+.field i.t{background:#a9b9a6}
+.field i.you{background:var(--forest);position:relative}
+.flag{display:flex;align-items:center;gap:.6cqw;white-space:nowrap;background:var(--forest);color:var(--cream);padding:.62cqw 1cqw;border-radius:99px;z-index:2}
+.flag::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:1.6cqw;background:var(--forest)}
+.flag em{font-style:normal;width:.5cqw;height:.5cqw;border-radius:50%;background:var(--lime)}
+.legend{left:44cqw;top:47.6cqw;display:flex;gap:2.4cqw;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:.6cqw}
+.legend i{width:.9cqw;height:.9cqw;background:var(--sage-2);clip-path:polygon(50% 4%,100% 46%,100% 100%,0 100%,0 46%)}
+
+/* ---------- 03 four jobs ---------- */
+.j-h{left:4.2cqw;top:9.2cqw;font-size:4.3cqw}
+.j-b{right:4.2cqw;top:11.2cqw;width:26cqw}
+.objs{left:4.2cqw;right:4.2cqw;top:18cqw;height:20cqw;display:grid;grid-template-columns:repeat(4,1fr);gap:2.4cqw}
+.objs figure{position:relative;display:grid;place-items:center}
+.objs img{width:17.5cqw;height:17.5cqw;object-fit:contain;filter:drop-shadow(0 1.3cqw 1.1cqw rgba(35,59,38,.26)) drop-shadow(0 .2cqw .3cqw rgba(35,59,38,.2));transform:rotate(var(--r))}
+.objs figure::after{content:"";position:absolute;left:50%;bottom:-2.2cqw;width:1px;height:2.6cqw;background:rgba(27,42,29,.35)}
+.j-rule{left:4.2cqw;right:4.2cqw;top:40.4cqw;height:1px;background:rgba(27,42,29,.18)}
+.caps{left:4.2cqw;right:4.2cqw;top:40.4cqw;display:grid;grid-template-columns:repeat(4,1fr);gap:2.4cqw}
+.caps div{position:relative;padding-top:1.5cqw;text-align:center;display:flex;flex-direction:column;align-items:center}
+.caps div::before{content:"";position:absolute;left:calc(50% - .32cqw);top:-.32cqw;width:.64cqw;height:.64cqw;border-radius:50%;background:var(--forest)}
+.caps small{display:block;color:var(--olive)}
+.caps h3{margin-top:.8cqw;font-size:1.75cqw}
+.caps p{margin-top:.55cqw;font-size:.86cqw;line-height:1.5;color:var(--muted);max-width:19cqw}
+
+/* ---------- 04 switching ---------- */
+.w-h{left:4.2cqw;top:9cqw;font-size:3.9cqw;width:60cqw}
+.w-h span{color:var(--lime)}
+.ground{left:4.2cqw;right:4.2cqw;top:34.6cqw;height:1.5px;background:rgba(247,244,236,.34)}
+.hs{top:19cqw;width:20cqw;height:15.6cqw;overflow:visible}
+.hs path,.hs rect{fill:none;stroke-width:2.2;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.hs .old{stroke:var(--sage-2);opacity:.5}
+.hs .new{stroke:var(--lime)}
+.hs .next{stroke:var(--sage-2);opacity:.38;stroke-dasharray:6 7;stroke-width:1.6}
+.hs rect.lit{fill:var(--lime);stroke:none;opacity:.9}
+.steps{left:4.2cqw;right:4.2cqw;top:34.6cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:3.2cqw}
+.steps div{position:relative;padding-top:2.4cqw}
+.steps div::before{content:"";position:absolute;left:0;top:-.38cqw;width:.76cqw;height:.76cqw;border-radius:50%;background:var(--lime)}
+.steps .row{display:flex;align-items:center;gap:1cqw;color:var(--sage-2)}
+.chip{padding:.42cqw .8cqw;border-radius:99px;background:var(--lime);color:var(--ink)}
+.chip--l{background:transparent;box-shadow:inset 0 0 0 1px rgba(247,244,236,.4);color:var(--cream)}
+.steps h3{margin-top:1cqw;font-size:2.05cqw}
+.steps p{margin-top:.6cqw;font-size:.92cqw;line-height:1.55;color:rgba(247,244,236,.7);max-width:24cqw}
+
+/* ---------- 05 the family ---------- */
+.f-h{left:4.2cqw;top:9cqw;font-size:3.9cqw;width:32cqw}
+.key{left:4.2cqw;top:22.8cqw;width:28cqw}
+.key{display:grid;grid-template-columns:1fr 1fr;column-gap:2cqw}
+.key p{color:var(--olive);margin-bottom:1cqw}
+.key ol{list-style:none;display:grid}
+.key li{display:grid;grid-template-columns:1.6cqw 1fr;gap:.2cqw;padding:.72cqw 0;border-top:1px solid rgba(27,42,29,.14);font-size:.84cqw;line-height:1.35}
+.key li b{font-weight:600}
+.key li span{display:block;color:var(--muted);font-size:.76cqw}
+.key li em{font:700 .62cqw/1.35 var(--ui);font-style:normal;color:var(--olive);padding-top:.15cqw}
+.f-note{left:4.2cqw;bottom:4.6cqw;width:28cqw;font-family:var(--serif);font-size:1.28cqw;line-height:1.4;letter-spacing:-.03em;color:var(--forest)}
+.f-note cite{display:block;margin-top:.9cqw;font:700 .62cqw/1 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-style:normal}
+.back{left:36cqw;right:0;top:0;bottom:0;background:var(--sand)}
+.riser{left:36cqw;right:0;bottom:0;height:10.4cqw;background:var(--forest);z-index:3}
+.riser::before{content:"";position:absolute;left:0;right:0;top:0;height:.3cqw;background:var(--lime)}
+.nums{left:36cqw;right:0;bottom:4.9cqw;z-index:5}
+.nums b{position:absolute;transform:translateX(-50%);color:var(--lime);font-weight:700}
+.p{width:var(--w);filter:grayscale(1) contrast(1.06) brightness(1.03) sepia(.08)}
+.pin{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font:700 .62cqw/1 var(--ui);z-index:9;box-shadow:0 0 0 .22cqw var(--sand)}
+
+/* ---------- 06 postcard ---------- */
+.card{left:8.6cqw;top:7.4cqw;width:82.8cqw;height:42.4cqw;background:var(--cream);color:var(--ink);transform:rotate(-1.6deg);
+  box-shadow:0 2.2cqw 4cqw rgba(10,20,11,.35),0 .2cqw .4cqw rgba(10,20,11,.2);overflow:hidden}
+.card>*{position:absolute}
+.card .lbl{top:3.6cqw;left:3.8cqw;color:var(--olive)}
+.card .lbl::before{background:var(--sage)}
+.card .body{color:var(--muted)}
+.pc-h{left:3.8cqw;top:8.2cqw;width:35cqw;font-size:3.7cqw}
+.pc-b{left:3.8cqw;top:18.8cqw;width:30cqw}
+.pc-l{left:3.8cqw;bottom:3.8cqw;display:flex;gap:2.4cqw;align-items:center}
+.pc-l span{display:flex;align-items:center;gap:.8cqw;padding-bottom:.5cqw;border-bottom:1px solid currentColor}
+.arr{display:inline-block;width:1cqw;height:.7cqw;position:relative}
+.arr::before{content:"";position:absolute;left:0;right:.08cqw;top:50%;height:1.5px;background:currentColor;transform:translateY(-50%)}
+.arr::after{content:"";position:absolute;right:.08cqw;top:50%;width:.5cqw;height:.5cqw;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:translateY(-50%) rotate(45deg)}
+.pc-div{left:43.2cqw;top:3.6cqw;bottom:3.6cqw;width:1px;background:rgba(27,42,29,.2)}
+.stamp{right:3.8cqw;top:3.4cqw;width:9.4cqw;height:11.6cqw;padding:.7cqw;background:#fff;transform:rotate(2deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,radial-gradient(circle,transparent .28cqw,#000 .3cqw) -.43cqw -.43cqw/.86cqw .86cqw;
+  mask:linear-gradient(#000 0 0) content-box,radial-gradient(circle,transparent .28cqw,#000 .3cqw) -.43cqw -.43cqw/.86cqw .86cqw;filter:drop-shadow(0 .1cqw .2cqw rgba(0,0,0,.15))}
+.stamp div::after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(27,42,29,.7))}
+.stamp div{position:relative;width:100%;height:100%;overflow:hidden;background:var(--forest)}
+.stamp img{width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.stamp b{position:absolute;z-index:1;left:.6cqw;bottom:.55cqw;font:700 .55cqw/1 var(--ui);letter-spacing:.07em;color:#fff;text-transform:uppercase}
+.stamp b+b{left:auto;right:.6cqw;font-family:var(--serif);font-size:1.3cqw;letter-spacing:-.04em;text-transform:none}
+.pmark{right:9.2cqw;top:5cqw;width:10cqw;height:10cqw;overflow:visible;transform:rotate(-12deg);opacity:.8;z-index:3;mix-blend-mode:multiply}
+.addr{left:47.4cqw;right:3.8cqw;top:20cqw;display:grid}
+.addr div{height:4.2cqw;display:flex;align-items:flex-end;padding-bottom:.55cqw;border-bottom:1px solid rgba(27,42,29,.28);font-family:var(--serif);font-size:1.75cqw;letter-spacing:-.04em;color:var(--forest)}
+.addr small{margin-right:auto}
+.addr .ui{margin-left:auto;color:var(--muted);padding-bottom:.2cqw}
+
+@media (max-width:700px){.top{padding:28px 16px 16px;flex-direction:column;gap:6px}.deck{padding:0 16px 56px;gap:20px}}
+</style>
+</head>
+<body>
+<header class="top"><span><b>Land South Properties and Management</b> · Owner presentation</span><span>Deck mock-up · 6 slides · 16:9</span></header>
+
+<main class="deck">
+
+<!-- 01 COVER: the photo is cut into the house outline from the site's line drawing -->
+<section class="s s--forest" aria-label="Slide 1, cover">
+  <span class="logo logo--l" style="left:4.2cqw;top:2.6cqw"></span>
+  <span class="lbl ui" style="left:25cqw">Owner presentation · November 2026</span>
+  <h1 class="c-h">Your home, looked after like one of <span>ours.</span></h1>
+  <p class="body c-sub">How Land South manages rental homes for owners across Lakeland and Polk County, as a family business, since 1978.</p>
+  <div class="meta">
+    <div><span class="ui">Prepared for</span>Lakeland &amp; Polk County property owners</div>
+    <div><span class="ui">Presented by</span>Meghan West, President</div>
+    <div><span class="ui">Office</span>4701 Old Rd 37, Lakeland, FL</div>
+  </div>
+  <div class="c-house"><img src="img/house-2-scaled.jpg" alt="A Land South managed home in Lakeland"></div>
+  <svg class="c-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-5 32.6L50-4.4L66.4 7.4V.4H77.6V15.6L105 32.6"/>
+    <path d="M70 -2.4c-2 -3 2 -5 0 -8M74 -2.4c-2 -3 2 -5 0 -8" style="opacity:.8"/>
+  </svg>
+  <div class="seal" aria-label="Family-run, Lakeland Florida, since 1978">
+    <svg viewBox="0 0 120 120">
+      <defs><path id="sealc" d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1 -86 0"/></defs>
+      <circle cx="60" cy="60" r="58" fill="#dcea9c"/>
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#233b26" stroke-width=".6" stroke-dasharray="1.4 2"/>
+      <text font-family="Season Sans" font-weight="700" font-size="8.2" fill="#233b26"><textPath href="#sealc" startOffset="0" textLength="268" lengthAdjust="spacing">FAMILY-RUN · LAKELAND, FLORIDA · SINCE 1978 ·</textPath></text>
+      <path d="M44 72V56L60 43L76 56V72H44ZM55 72V63H65V72" fill="none" stroke="#233b26" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- 02 700 HOMES: one house mark per managed home -->
+<section class="s" aria-label="Slide 2, 700 homes, one family">
+  <span class="lbl ui" style="left:4.2cqw">Owner presentation</span>
+  <span class="lbl ui" style="left:25cqw">01 · Who we are</span>
+  <span class="logo corner"></span>
+  <h2 class="n-h">700 homes.<br>One family.</h2>
+  <p class="body n-b">Land South is one of Lakeland's largest and most diverse property management companies. It is still run by one family, from one office, as it has been since 1978.</p>
+  <div class="stats">
+    <div style="--c:var(--olive)"><b>48</b><span>Years in business, since 1978</span></div>
+    <div style="--c:var(--sage)"><b>10</b><span>Communities across Polk County</span></div>
+    <div style="--c:var(--lime-2)"><b>08</b><span>People who know every address</span></div>
+  </div>
+  <div class="field" id="field" role="img" aria-label="700 house marks, one for each home under management, with one marked as yours, next"></div>
+  <div class="legend ui"><span><i></i>One home under management</span><span><i style="background:var(--forest)"></i>Yours, next</span></div>
+  <span class="src ui">Source: Land South, 2026</span>
+  <span class="folio ui">02 / 06</span>
+</section>
+
+<!-- 03 FOUR JOBS: the collage objects laid out like an inventory -->
+<section class="s s--sand" aria-label="Slide 3, four jobs you'll never do again">
+  <span class="lbl ui" style="left:4.2cqw">Owner presentation</span>
+  <span class="lbl ui" style="left:25cqw">02 · What we take on</span>
+  <span class="logo corner"></span>
+  <h2 class="j-h">Four jobs you'll never<br>do again.</h2>
+  <p class="body j-b">From the first listing to the last walk-through, the Land South team runs every part of the rental for you.</p>
+  <div class="objs">
+    <figure><img src="img/svc-marketing.png" alt="Megaphone collage" style="--r:-7deg"></figure>
+    <figure><img src="img/svc-screening.png" alt="Magnifying glass over a rental application" style="--r:9deg"></figure>
+    <figure><img src="img/svc-maintenance.png" alt="Wrench with an inspection report" style="--r:-4deg"></figure>
+    <figure><img src="img/svc-moveout.png" alt="House key with a move-out checklist tag" style="--r:7deg"></figure>
+  </div>
+  <div class="j-rule"></div>
+  <div class="caps">
+    <div><small class="ui">01</small><h3>Marketing</h3><p>We price it against the Lakeland market, prepare it for rent and list it everywhere renters look.</p></div>
+    <div><small class="ui">02</small><h3>Screening</h3><p>A stringent process that fills your home with reliable, responsible tenants.</p></div>
+    <div><small class="ui">03</small><h3>Maintenance</h3><p>Requests seen to immediately, with regular inspections in between.</p></div>
+    <div><small class="ui">04</small><h3>Move-out</h3><p>Final inspection, deposit return and turnover work, all handled.</p></div>
+  </div>
+  <span class="folio ui">03 / 06</span>
+</section>
+
+<!-- 04 SWITCHING: the house line drawing builds along one ground line -->
+<section class="s s--forest" aria-label="Slide 4, how switching works">
+  <span class="lbl ui" style="left:4.2cqw">Owner presentation</span>
+  <span class="lbl ui" style="left:25cqw">03 · Switching to Land South</span>
+  <span class="logo logo--l corner"></span>
+  <h2 class="w-h">Switching takes three steps.<br><span>You only take the first.</span></h2>
+  <div class="ground"></div>
+  <svg class="hs" style="left:4.2cqw" viewBox="0 0 400 312" aria-hidden="true">
+    <path class="next" d="M60 182L200 70L340 182M262 120V82h28v60M176 312V238a24 24 0 0 1 48 0V312M104 200h48v44h-48zM248 200h48v44h-48z"/>
+    <path class="new" d="M80 312V170M320 312V170M80 170H320"/>
+  </svg>
+  <svg class="hs" style="left:38.6cqw" viewBox="0 0 400 312" aria-hidden="true">
+    <path class="old" d="M80 312V170M320 312V170M80 170H320"/>
+    <path class="next" d="M104 200h48v44h-48zM248 200h48v44h-48z"/>
+    <path class="new" d="M60 182L200 70L340 182M262 120V82h28v60M176 312V238a24 24 0 0 1 48 0V312"/>
+  </svg>
+  <svg class="hs" style="left:73cqw" viewBox="0 0 400 312" aria-hidden="true">
+    <path class="old" d="M80 312V170M320 312V170M80 170H320M60 182L200 70L340 182M262 120V82h28v60M176 312V238a24 24 0 0 1 48 0V312"/>
+    <rect class="lit" x="104" y="200" width="48" height="44"/><rect class="lit" x="248" y="200" width="48" height="44"/>
+    <path class="new" d="M104 200h48v44h-48zM248 200h48v44h-48zM128 200v44M272 200v44M104 222h48M248 222h48M276 70c-8-10 8-16 0-28M284 64c-6-8 6-12 0-20"/>
+  </svg>
+  <div class="steps">
+    <div><p class="row ui">Step 01 <span class="chip">You</span></p><h3>Send us your address</h3><p>We study the Lakeland rental market and tell you what your home should rent for. Free.</p></div>
+    <div><p class="row ui">Step 02 <span class="chip chip--l">Us</span></p><h3>We take over the paperwork</h3><p>Leases, deposits, keys and introductions to current residents. You never chase your old manager.</p></div>
+    <div><p class="row ui">Step 03 <span class="chip chip--l">Us</span></p><h3>Your first rent is paid</h3><p>Rent is collected online and paid out to you, with every statement in your owner portal.</p></div>
+  </div>
+  <span class="folio ui" style="color:var(--cream)">04 / 06</span>
+</section>
+
+<!-- 05 THE FAMILY: the team as one group portrait with a caption key -->
+<section class="s" aria-label="Slide 5, the Land South team">
+  <div class="back"></div>
+  <span class="lbl ui" style="left:4.2cqw">Owner presentation</span>
+  <span class="lbl ui" style="left:25cqw">04 · Who you'll talk to</span>
+  <h2 class="f-h">The family who picks up the phone.</h2>
+  <div class="key">
+    <div><p class="ui">From left</p><ol>
+      <li><em>01</em><div><b>Frank Torres</b><span>Property manager</span></div></li>
+      <li><em>02</em><div><b>Chelsey Sporer</b><span>Property manager</span></div></li>
+      <li><em>03</em><div><b>Alan Garcia</b><span>Virtual assistant</span></div></li>
+      <li><em>04</em><div><b>Michele Noriega</b><span>Administrative support</span></div></li>
+    </ol></div>
+    <div><p class="ui">&nbsp;</p><ol>
+      <li><em>05</em><div><b>Meghan West</b><span>President</span></div></li>
+      <li><em>06</em><div><b>Ashley Partridge</b><span>Controller</span></div></li>
+      <li><em>07</em><div><b>Erika Dallas</b><span>Property manager</span></div></li>
+      <li><em>08</em><div><b>Brianna McMinn</b><span>Marketing</span></div></li>
+    </ol></div>
+  </div>
+  <blockquote class="f-note">“I deal with Chelsey or Michele daily, and both are equally effective.”<cite>Michael Lombard, vendor, with Land South for many years</cite></blockquote>
+  <div class="riser"></div>
+  <div id="group"></div>
+  <span class="logo corner"></span>
+  <span class="folio ui">05 / 06</span>
+</section>
+
+<!-- 06 POSTCARD: the call to action, addressed back to Land South -->
+<section class="s s--olive" aria-label="Slide 6, free rental analysis">
+  <span class="lbl ui" style="left:4.2cqw;top:2.5cqw">Owner presentation</span>
+  <span class="lbl ui" style="left:25cqw;top:2.5cqw">05 · Next step</span>
+  <div class="card">
+    <span class="lbl ui">Free rental analysis</span>
+    <h2 class="pc-h">Find out what your home should rent for.</h2>
+    <p class="body pc-b">Send us the address. A Land South manager will send you a rental analysis for the Lakeland market. Prefer to talk first? Book a free 30-minute consultation.</p>
+    <p class="pc-l ui"><span>Book a 30-minute call <i class="arr"></i></span><span>landsouthmanagement.com <i class="arr"></i></span></p>
+    <div class="pc-div"></div>
+    <svg class="pmark" viewBox="0 0 120 120" aria-hidden="true">
+      <defs><path id="pm" d="M60 60m-41 0a41 41 0 1 1 82 0a41 41 0 1 1 -82 0"/></defs>
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#3d5a33" stroke-width="1.6"/>
+      <circle cx="60" cy="60" r="31" fill="none" stroke="#3d5a33" stroke-width="1"/>
+      <text font-family="Season Sans" font-weight="700" font-size="8.4" letter-spacing="2" fill="#3d5a33"><textPath href="#pm">LAKELAND, FL · 33813 · SINCE 1978 ·</textPath></text>
+      <text x="60" y="57" text-anchor="middle" font-family="Season Sans" font-weight="700" font-size="9" letter-spacing="1" fill="#3d5a33">NOV</text>
+      <text x="60" y="72" text-anchor="middle" font-family="Nanum Myeongjo" font-size="15" fill="#3d5a33">2026</text>
+      <path d="M-120 44c10-6 20 6 30 0s20 6 30 0s20 6 30 0s20 6 30 0M-120 60c10-6 20 6 30 0s20 6 30 0s20 6 30 0s20 6 30 0M-120 76c10-6 20 6 30 0s20 6 30 0s20 6 30 0s20 6 30 0" fill="none" stroke="#3d5a33" stroke-width="1.4"/>
+    </svg>
+    <div class="stamp"><div><img src="img/house-hero.jpg" alt=""><b>Lakeland</b><b>48</b></div></div>
+    <div class="addr">
+      <div>Land South Properties and Management</div>
+      <div>4701 Old Rd 37</div>
+      <div>Lakeland, FL 33813</div>
+      <div><small>(863) 665-8575</small><span class="ui">Broker: Robert Harper V</span></div>
+    </div>
+  </div>
+  <span class="logo logo--l" style="left:4.2cqw;bottom:2.2cqw;width:7.4cqw"></span>
+  <span class="folio ui" style="color:var(--cream)">06 / 06</span>
+</section>
+
+</main>
+
+<script>
+(() => {
+  const q = new URLSearchParams(location.search), n = +q.get('s');
+  if (n) { document.body.classList.add('solo'); document.querySelectorAll('.s').forEach((s, i) => { if (i + 1 !== n) s.remove(); }); }
+
+  /* 700 houses, one per managed home; one marked "yours, next" */
+  const f = document.getElementById('field');
+  if (f) {
+    const you = 20 * 35 - 8;            /* last row, near the end */
+    f.innerHTML = Array.from({length: 700}, (_, i) => `<i${i === you ? ' class="you"' : (Math.sin(i * 12.9898) * 43758.5453 % 1 + 1) % 1 < .16 ? ' class="t"' : ''}></i>`).join('');
+    const yEl = f.children[you];
+    requestAnimationFrame(() => {
+      const s = f.closest('.s'), r = s.getBoundingClientRect(), b = yEl.getBoundingClientRect(), u = r.width / 100;
+      const flag = document.createElement('span');
+      flag.className = 'flag ui'; flag.innerHTML = '<em></em>Yours, next';
+      s.appendChild(flag);
+      const fw = flag.getBoundingClientRect().width / u;
+      flag.style.left = ((b.left + b.width / 2 - r.left) / u - fw / 2) + 'cqw';
+      flag.style.top = ((b.top - r.top) / u - 4.2) + 'cqw';
+    });
+  }
+
+  /* group portrait: back row, then front row (overlapping), plus number pins */
+  const g = document.getElementById('group');
+  if (g) {
+    const s = g.closest('.s');
+    const people = [
+      /* name, x (cqw, left edge), bottom (cqw), width (cqw), pin x/y offsets within image (fractions) */
+      ['frank',   15.4],
+      ['chelsey', 14.8],
+      ['alan',    15.6],
+      ['michele', 14.4],
+      ['meghan',  15.6],
+      ['ashley',  14.2],
+      ['erika',   15.2],
+      ['bri',     15.0],
+    ];
+    /* one line-up standing behind the ledge: centres 7cqw apart, alternate people a step forward */
+    const nums = document.createElement('div'); nums.className = 'nums ui'; s.appendChild(nums);
+    people.forEach(([n, w], i) => {
+      const c = 45.2 + i * 6.9, im = document.createElement('img');
+      im.className = 'p'; im.src = `img/team/${n}.png`; im.alt = '';
+      im.style.cssText = `--w:${w * 1.18}cqw;left:${c - w * 1.18 / 2}cqw;bottom:10.4cqw;z-index:${i % 2 ? 2 : 3}`;
+      s.appendChild(im);
+      nums.insertAdjacentHTML('beforeend', `<b style="left:${c - 36}cqw">0${i + 1}</b>`);
+    });
+  }
+})();
+</script>
+</body>
+</html>
